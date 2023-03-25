@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+dbs
+example
+*.pyc
+.ipynb_checkpoints
+.Rhistory
+.Rproj.user
