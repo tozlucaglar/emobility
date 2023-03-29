@@ -30,7 +30,8 @@ def otp_server_starter(otp_file=None, otp_folder=None, memory_gb=None):
 
 
 def req_define(fromPlace, toPlace, time, date, maxWalkDistance,
-               numItineraries=1, clampInitialWait=0, mode="TRANSIT,WALK", arriveBy=False, bikeSpeed=25): # "TRANSIT,WALK"
+               numItineraries=1, clampInitialWait=0, mode="TRANSIT,WALK", arriveBy=False, bikeSpeed=25, optimization='no',
+               triangleSafetyFactor=1/3, triangleSlopeFactor=1/3, triangleTimeFactor=1/3): # "TRANSIT,WALK"
     # fromPlace, toPlace: (59.33021, 18.07096)
     # numItineraries (int): 3
     # time (string): "5:00am"
@@ -66,6 +67,16 @@ def req_define(fromPlace, toPlace, time, date, maxWalkDistance,
     # max ebike speed
     request += "&bikeSpeed="
     request += str(bikeSpeed)
+    # optimization
+    if optimization == 'yes':
+        request += "&optimize="
+        request += "TRIANGLE"
+        request += "&triangleSafetyFactor="
+        request += str(triangleSafetyFactor)
+        request += "&triangleSlopeFactor="
+        request += str(triangleSlopeFactor)
+        request += "&triangleTimeFactor="
+        request += str(triangleTimeFactor)
     # arriveBy
     request += "&arriveBy="
     if arriveBy == False:
