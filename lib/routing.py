@@ -3,7 +3,7 @@ import subprocess
 import yaml
 import json
 import requests as req
-
+import pandas as pd
 
 def get_repo_root():
     """Get the root directory of the repo."""
@@ -30,7 +30,7 @@ def otp_server_starter(otp_file=None, otp_folder=None, memory_gb=None):
 
 
 def req_define(fromPlace, toPlace, time, date, maxWalkDistance,
-               numItineraries=1, clampInitialWait=0, mode="TRANSIT,WALK", arriveBy=False, bikeSpeed=25, optimization='no',
+               numItineraries=1, clampInitialWait=0, mode="TRANSIT,WALK", arriveBy=False, bikeSpeed=5.56, optimization='no',
                triangleSafetyFactor=1/3, triangleSlopeFactor=1/3, triangleTimeFactor=1/3): # "TRANSIT,WALK"
     # fromPlace, toPlace: (59.33021, 18.07096)
     # numItineraries (int): 3
@@ -87,7 +87,7 @@ def req_define(fromPlace, toPlace, time, date, maxWalkDistance,
     return request
 
 
-def requesting_origin_batch(data=None, walkdistance=300, folder2save=None, region=None, mode="BICYCLE,WALK"):
+def requesting_origin_batch(data=None, walkdistance=300, folder2save=None, region=None, mode="BICYCLE,WALK", bikeSpeed=5.56 ):
     origin = data.loc[:, 'origin'].values[0]
     print("Origin ID: ", origin, "# ODs", len(data))
     jsonList_ID = []
@@ -97,7 +97,8 @@ def requesting_origin_batch(data=None, walkdistance=300, folder2save=None, regio
                              time=row['depart_time'],
                              date=row['date'],
                              maxWalkDistance=walkdistance,
-                             mode=mode)
+                             mode=mode,
+                             bikeSpeed=bikeSpeed)
         resp = req.get(request)
         output = resp.json()
         if "plan" in output:
@@ -110,3 +111,5 @@ def requesting_origin_batch(data=None, walkdistance=300, folder2save=None, regio
         with open(folder2save + region + '_origin_' + str(origin) + ".json", 'w') as outfile:
             for ele in jsonList_ID:
                 print(json.dumps(ele), file=outfile)
+
+
