@@ -22,19 +22,19 @@ import lib.routing as routing
 
 
 if __name__ == "__main__":
-    region = 'vg'
+    region = 'vg_all'
     # Parallelize the routing requests
     print('Parallelize the routing requests...')
     df_od = pd.read_csv(ROOT_dir + f'/example/od_pairs_{region}.csv')
     def parallel_process(x):
-        folder2save = ROOT_dir + f'/example/output_1000/'
+        folder2save = ROOT_dir + f'/example/output_all/'
         mode = "BICYCLE,WALK"
         walkdistance = 300
-        region = 'vg_1000'
-        bikeSpeed = 7
-        routing.requesting_origin_batch(data=x, walkdistance=walkdistance,
+        region = 'vg_all'
+        bikeSpeed = 8.333
+        routing.requesting_part_batch_bike(data=x, walkdistance=walkdistance,
                                         folder2save=folder2save, region=region, mode=mode, bikeSpeed=bikeSpeed)
-    p_map(parallel_process, [x for _, x in df_od.groupby("origin")])
+    p_map(parallel_process, [x for _, x in df_od.groupby("part")])
 
 
 
