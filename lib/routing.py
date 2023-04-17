@@ -163,12 +163,13 @@ def requesting_part_batch_bike(data=None, walkdistance=300, folder2save=None, re
         output = resp.json()
         if "plan" in output:
             if len(output["plan"]["itineraries"])== 0 :
-                plan = {'person': row['person'], 'duration':0 ,'lat_o': row['lat_o'],  'lng_o':row['lng_o'], 'lat_d':row['lat_d'], 'lng_d':row['lng_d']}
+                plan = {'person': row['person'], 'act_id': row['act_id'], 'duration':0 ,'lat_o': row['lat_o'],  'lng_o':row['lng_o'], 'lat_d':row['lat_d'], 'lng_d':row['lng_d']}
                 jsonList_ID.append(plan)
             else:
                 plan = output["plan"]["itineraries"][0]
                 plan["max_bikeSpeed"] = bikeSpeed
                 plan["person"] = row['person']
+                plan["act_id"] = row['act_id']
                 jsonList_ID.append(plan)
     data.apply(lambda row: requesting(row), axis=1)
     if len(jsonList_ID) > 0:

@@ -25,9 +25,9 @@ if __name__ == "__main__":
     region = 'vg_all'
     # Parallelize the routing requests
     print('Parallelize the routing requests...')
-    df_od = pd.read_csv(ROOT_dir + f'/example/od_pairs_{region}.csv')
+    df_od = pd.read_csv(ROOT_dir + f'/dbs/agents/od_pairs_{region}.csv')
     def parallel_process(x):
-        folder2save = ROOT_dir + f'/example/output_all/'
+        folder2save = ROOT_dir + f'/dbs/output_all/'
         mode = "BICYCLE,WALK"
         walkdistance = 300
         region = 'vg_all'
