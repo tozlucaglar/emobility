@@ -147,7 +147,6 @@ def requesting_origin_batch_bike(data=None, walkdistance=300, folder2save=None, 
 
 def requesting_part_batch_bike(data=None, walkdistance=300, folder2save=None, region=None, mode="BICYCLE,WALK", bikeSpeed=5.56 ):
 
-
     part = data.loc[:, 'part'].values[0]
     print("Part ID: ", part, "# ODs", len(data))
     jsonList_ID = []
