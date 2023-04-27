@@ -166,7 +166,7 @@ def requesting_part_batch_bike(data=None, walkdistance=300, folder2save=None, re
                 jsonList_ID.append(plan)
             else:
                 plan = output["plan"]["itineraries"][0]
-                plan["max_bikeSpeed"] = bikeSpeed
+                plan["cycling_speed"] = row['cycling_speed']
                 plan["person"] = row['person']
                 plan["act_id"] = row['act_id']
                 jsonList_ID.append(plan)
